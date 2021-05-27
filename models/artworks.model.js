@@ -13,10 +13,7 @@ const artworksSchema = new mongoose.Schema({
    year: {
         type: Number // Poner como date o máximo 4 dígitos
    },
-   medium: {
-       type: String,
-       required: true
-   },
+   medium: String,
    type: {
         type: String,
         enum: {
@@ -25,7 +22,10 @@ const artworksSchema = new mongoose.Schema({
         }
    },
    image: String,
-   dimensions: String,
+   dimensions: {
+       type: String,
+       required: true
+   },
    exhibitionHistory: [{
        type: mongoose.Schema.Types.ObjectId,
        ref: 'exhibition-fair'
@@ -62,5 +62,5 @@ const artworksSchema = new mongoose.Schema({
     price: Number     
 })
 
-const artworksModel = mongoose.Model('artwork', artworksSchema)
+const artworksModel = mongoose.model('artwork', artworksSchema)
 module.exports = artworksModel

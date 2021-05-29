@@ -50,7 +50,8 @@ const contactsSchema = new mongoose.Schema({
         enum: {
             values: ['Collector', 'Admin', 'Employee', 'Visitor', 'Shipper'],
             message: '{VALUE} is not supported'
-           }   
+           },
+         default: "Visitor"    
         },
     password: { 
         type: String, 
@@ -63,5 +64,5 @@ const contactsSchema = new mongoose.Schema({
     }]   
 })
 
-const contactsModel = mongoose.Model('contact', contactsSchema)
+const contactsModel = mongoose.model('contact', contactsSchema)
 module.exports = contactsModel

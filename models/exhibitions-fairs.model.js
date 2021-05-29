@@ -24,5 +24,5 @@ const exhibitionsFairsSchema = new mongoose.Schema({
     }] 
 })
 
-const exhibitionsFairsModel = mongoose.Model('exhibitions-fair', exhibitionsFairsSchema)
+const exhibitionsFairsModel = mongoose.model('exhibitions-fair', exhibitionsFairsSchema)
 module.exports = exhibitionsFairsModel

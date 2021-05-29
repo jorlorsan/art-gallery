@@ -48,5 +48,5 @@ const publicationsSchema = new mongoose.Schema({
     price: Number 
 })
 
-const publicationsModel = mongoose.Model('publication', publicationsSchema)
+const publicationsModel = mongoose.model('publication', publicationsSchema)
 module.exports = {publicationsSchema, publicationsModel} 

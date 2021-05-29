@@ -29,5 +29,5 @@ const documentsSchema = new mongoose.Schema({
     invoiceNumber: String
 })
 
-const documentsModel = mongoose.Model('document', documentsSchema)
+const documentsModel = mongoose.model('document', documentsSchema)
 module.exports = documentsModel

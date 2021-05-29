@@ -6,11 +6,10 @@ function getAllArtworks (req, res) {
         .find()
         .then((artworks) => {res.json(artworks)})
         .catch((err) => { res.json(err) })
-    
 }
 
 function createArtwork (req, res) {
-
+    
     artworksModel
         .create({
             title: req.body.title,

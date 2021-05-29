@@ -2,26 +2,27 @@ const contactsModel = require('../models/contacts.model')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-function signup(req, res) {
-
-    const hashed_password = bcrypt.hashSync(req.body.password, 10)
+function signUp(req, res) {
+  console.log("HOLA!!!!!!!!", req.body)
+   const hashed_password = bcrypt.hashSync(req.body.password, 10)
 
     const hashed_body = {
       name: req.body.name,
       surname: req.body.surname,
       type: req.body.type,
+      telephone: req.body.telephone,
       email: req.body.email,
       password: hashed_password
     }
 
-    contactModel.create(hashed_body)
+    contactsModel.create(hashed_body)
       .then((contact) => {
 
         const insideToken = {
           name: contact.name,
           surname: contact.surname,
           id: contact._id,
-          email: contact.email
+          type: contact.type
         }
 
         const token = jwt.sign(
@@ -44,9 +45,9 @@ function signup(req, res) {
       })
 }
 
-function login(req, res) {
+function logIn(req, res) {
 
-  contactModel.findOne({ email: req.body.email })
+  contactsModel.findOne({ email: req.body.email })
     .then((contact) => {
       if (!contact) res.json('Wrong email')
 
@@ -85,6 +86,6 @@ function login(req, res) {
 }
 
 module.exports = {
-  signup,
-  login
+  signUp,
+  logIn
 }

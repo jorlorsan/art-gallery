@@ -11,11 +11,7 @@ function getAllArtworks (req, res) {
 function createArtwork (req, res) {
     
     artworksModel
-        .create({
-            title: req.body.title,
-            dimensions: req.body.dimensions,
-            stockNo: req.body.stockNo
-        })
+        .create(req.body)
         .then((artwork) => {res.json(artwork)})
         .catch((err) => { res.json(err) })
 }

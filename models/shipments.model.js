@@ -34,12 +34,11 @@ const shipmentsSchema = new mongoose.Schema({
     default: "EUR"  
   },  
   price: Number,
-  exportDeadline: Date,
   client: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'contact'
   }]
 })
 
-const contactsModel = mongoose.model('contact', contactsSchema)
-module.exports = contactsModel
+const shipmentsModel = mongoose.model('shipment', shipmentsSchema)
+module.exports = shipmentsModel

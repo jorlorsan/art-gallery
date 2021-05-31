@@ -2,15 +2,10 @@ const mongoose = require('mongoose')
 const {publicationsSchema} = require('./publications.model')
 
 const artistsSchema = new mongoose.Schema({
-    name: {
+    artistName: {
         type: String,
         required: true
     },
-    surname: {
-        type: String,
-        required: true
-    },
-    alias: String,
     artworks: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'artwork'

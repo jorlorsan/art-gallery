@@ -19,34 +19,23 @@ function createArtist(req, res){
             res.json(artist)
 
         })
-        .catch((err) => handdleError(err, res))
+        .catch((err) => { res.json(err) })
 }
 
 function filterArtists(req, res){
     let objQuery = {};
-    if(typeof req.query.name !== 'undefined'){
-      objQuery.name= req.query.name;
+    if(typeof req.query.artistName !== 'undefined'){
+      objQuery.artistName= req.query.artistName;
     }
-    if(typeof req.query.surname !== 'undefined') {
-    	objQuery.surname=req.query.surname
-    }
-    
-    if(typeof req.query.alias !== 'undefined') {
-    	objQuery.alias = req.query.alias
+    if(typeof req.query.country !== 'undefined'){
+      objQuery.country= req.query.country;
     }
 
     artistsModel
       .find(objQuery)
 			.populate('artworks')
       .then((artists) => { 
-				res.json(artists.map( artist => { 
-        return { 
-					name: artist.name, 
-					surname: artist.surname, 
-					alias: artist.alias,
-					email: artist.email
-				}
-				}));
+				res.json(artists);
 			})
       .catch((err) => handdleError(err, res))
   }
@@ -79,7 +68,7 @@ function updateArtist(req, res) {
   artistsModel
 	  .findByIdAndUpdate(req.params.artistId, req.body, {
       new: true,
-      runValidators: true
+      //runValidators: true
     }) //returnNewDocument : true
 		//save?
     .then(artist => res.json(artist))

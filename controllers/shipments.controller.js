@@ -47,7 +47,7 @@ function filterShipments(req, res){
 }
 
 function getShipment(req, res) {
-	shipmentId = req.params.shipmentsId;
+	shipmentId = req.params.shipmentId;
 	shipmentsModel
 		.findById(shipmentId)
 		.populate('artworks')

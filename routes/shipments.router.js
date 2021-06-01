@@ -14,9 +14,9 @@ const {
 shipmentRouter.get( '/', getAllShipments)
 shipmentRouter.post( '/', auth, isAdmin, createShipment)
 shipmentRouter.get( '/filter', filterShipments)
-shipmentRouter.get('/:publicationId', getShipment)
-shipmentRouter.delete('/:publicationId', deleteShipment)
-shipmentRouter.put('/:publicationId', updateShipment)
+shipmentRouter.get('/:shipmentId', getShipment)
+shipmentRouter.delete('/:shipmentId', deleteShipment)
+shipmentRouter.put('/:shipmentId', updateShipment)
 
 
 module.exports = shipmentRouter

@@ -11,10 +11,11 @@ const {
 } = require('../controllers/artists.controller')
 
 artistRouter.get( '/', getAllArtists)
+artistRouter.get('/:artistId',getArtist)
 artistRouter.post( '/', createArtist)
 artistRouter.get('/filter', filterArtists)
 artistRouter.delete('/:artistId', deleteArtist)
-artistRouter.get('/:artistId',getArtist)
+
 artistRouter.put('/:artistId', updateArtist)
 
 module.exports = artistRouter

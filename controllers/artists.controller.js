@@ -12,14 +12,14 @@ function getAllArtists(req, res) {
 }
 
 function createArtist(req, res){
-  //console.log(req.body)
-    artistsModel
-        .create(req.body)
-        .then((artist) => {
-            res.json(artist)
+  console.log(req.body)
+  artistsModel
+      .create(req.body)
+      .then((artist) => {
+          res.json(artist)
 
-        })
-        .catch((err) => { res.json(err) })
+      })
+      .catch((err) => { res.json(err) })
 }
 
 function filterArtists(req, res){
@@ -43,7 +43,7 @@ function filterArtists(req, res){
 
 function getArtist(req, res) {
 	artistId = req.params.artistId;
-
+  console.log(artistId)
 	artistsModel
 		.findById(artistId)
 		.populate('artworks')

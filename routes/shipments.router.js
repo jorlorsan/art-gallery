@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const shipmentRouter = require('express').Router()
-const { auth, isAdmin } = require('../utils/functions')
+const { auth, isEmployee } = require('../utils/functions')
 
 const {
     getAllShipments, 
@@ -11,12 +11,12 @@ const {
     updateShipment
 } = require('../controllers/shipments.controller')
 
-shipmentRouter.get( '/', getAllShipments)
-shipmentRouter.post( '/', auth, isAdmin, createShipment)
-shipmentRouter.get( '/filter', filterShipments)
-shipmentRouter.get('/:shipmentId', getShipment)
-shipmentRouter.delete('/:shipmentId', deleteShipment)
-shipmentRouter.put('/:shipmentId', updateShipment)
+shipmentRouter.get( '/', auth, isEmployee, getAllShipments)
+shipmentRouter.post( '/', auth, isEmployee, createShipment)
+shipmentRouter.get( '/filter', auth, isEmployee, filterShipments)
+shipmentRouter.get('/:shipmentId', auth, isEmployee, getShipment)
+shipmentRouter.delete('/:shipmentId', auth, isEmployee, deleteShipment)
+shipmentRouter.put('/:shipmentId', auth, isEmployee, updateShipment)
 
 
 module.exports = shipmentRouter

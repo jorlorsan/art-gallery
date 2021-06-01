@@ -11,10 +11,10 @@ const {
     updateContact
 } = require('../controllers/contacts.controller')
 
-contactRouter.get( '/', getAllContacts)
-contactRouter.get('/:contactId',getContact)
-contactRouter.post( '/', createContact)
-contactRouter.get('/filter', filterContacts)
+contactRouter.get( '/', auth, isAdmin, getAllContacts)
+contactRouter.get('/:contactId', auth, isAdmin,getContact)
+contactRouter.post( '/', auth, isAdmin, createContact)
+contactRouter.get('/filter', auth, isAdmin, filterContacts)
 contactRouter.delete('/:contactId', auth, isAdmin, deleteContact)
 contactRouter.put('/:contactId', auth, updateContact)
 

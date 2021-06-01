@@ -1,4 +1,4 @@
-const { documentsModel }= require('../models/documents.model')
+const documentsModel = require('../models/documents.model')
 const { handdleError} = require('../utils/functions');
 
 function getAllDocuments(req, res) {
@@ -14,6 +14,7 @@ function getAllDocuments(req, res) {
 
 
 function createDocument(req, res){
+  console.log(req.body)
   documentsModel
     .create(req.body)
     .then((document) => {

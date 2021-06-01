@@ -75,12 +75,25 @@ function updateArtist(req, res) {
     .catch((err) => handdleError(err, res))
 }
 
+function addPublicationToArtist(req, res) {
+  console.log(req.params)
+  artistsModel
+	  .findById(req.params.artistId)
+    .then((artist) => {
+      artist.publications.push(req.body)
+      artist.save()
+      res.json(artist)
+    })
+    .catch((err) => handdleError(err, res))
+}
+
+
 module.exports = { 
     getAllArtists, 
     createArtist,
 		filterArtists,
 		deleteArtist,
 		getArtist,
-		updateArtist
-
+		updateArtist,
+    addPublicationToArtist
 }

@@ -61,7 +61,8 @@ function logIn(req, res) {
             name: contact.name,
             surname: contact.surname,
             email: contact.email,
-            id: contact._id
+            id: contact._id,
+            type: contact.type
           }
           const token = jwt.sign(
             insideToken,

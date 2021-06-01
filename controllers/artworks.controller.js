@@ -4,8 +4,18 @@ function getAllArtworks (req, res) {
 
     artworksModel
         .find()
-        .then((artworks) => {res.json(artworks)})
+        .then((artworks) => {
+          res.json(artworks.map(artwork => (artwork.title + ", " + artwork.year))) 
+        })
         .catch((err) => { res.json(err) })
+}
+
+function getAllArtworksAuth (req, res) {
+
+  artworksModel
+      .find()
+      .then((artworks) => { res.json(artworks) })
+      .catch((err) => { res.json(err) })
 }
 
 function createArtwork (req, res) {
@@ -57,6 +67,7 @@ function updateArtwork(req, res) {
 
 module.exports = {
     getAllArtworks, 
+    getAllArtworksAuth,
     createArtwork,
     filterArtworks,
     getArtwork,

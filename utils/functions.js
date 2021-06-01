@@ -22,8 +22,16 @@ next()
 } else res.json("No está autorizado")
 }
 
+function isEmployee(req, res, next) {
+  console.log(res.locals)
+if (res.locals.type === "Employee") { 
+next()
+} else res.json("No está autorizado")
+}
+
 module.exports = {
     handdleError,
     auth,
-    isAdmin
+    isAdmin,
+    isEmployee
   }

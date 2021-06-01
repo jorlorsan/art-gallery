@@ -25,10 +25,12 @@ function createShipment(req, res){
 function filterShipments(req, res){
   let objQuery = {};
 
-  objQuery.shipmentNo= (typeof req.query.shipmentNo !== 'undefined') ? objQuery.shipmentNo= req.query.shipmentNo : ''
-  // if(typeof req.query.shipmentNo !== 'undefined'){
-  //   objQuery.shipmentNo= req.query.shipmentNo;
-  // }
+  if(typeof req.query.from !== 'undefined'){
+    objQuery.from= req.query.from;
+  }
+  /*if(typeof req.query.to !== 'undefined'){
+    objQuery.to= req.query.to;
+  }*/
   shipmentsModel
     .find(objQuery)
     .populate('artworks')
@@ -55,7 +57,7 @@ function getShipment(req, res) {
 		.then((shipment) => {
 			res.json(shipment)
 		})
-		.catch((err) => handdleError(err, res))
+		.catch((err) => res.json(err))
 }
 
 function deleteShipment(req, res){

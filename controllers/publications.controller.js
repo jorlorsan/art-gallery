@@ -21,29 +21,6 @@ function createPublication(req, res){
     .catch((err) => handdleError(err, res))
   }
 
-  function filterPublications(req, res){
-    
-    let objQuery = {};
-    if(typeof req.query.author !== 'undefined'){
-      objQuery.author= req.query.author;
-    }
-    if(typeof req.query.title !== 'undefined') {
-    	objQuery.title=req.query.title
-    }
-    publicationsModel
-      .find(objQuery)
-	    .then((publications) => { 
-				res.json(publications.map( publication => { 
-        return { 
-					title: publication.title, 
-					author: publication.author, 
-					year: publication.year,
-					condition: publication.condition
-				}
-				}));
-			})
-      .catch((err) => handdleError(err, res))
-  }
 
 function getPublication(req, res) {
   publicationId = req.params.publicationId;
@@ -80,7 +57,6 @@ function updatePublication(req, res) {
 module.exports = { 
     getAllPublications, 
     createPublication,
-    filterPublications,
     deletePublication,
     getPublication,
     updatePublication

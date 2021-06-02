@@ -17,8 +17,8 @@ const {
 artworkRouter.get( '/', getAllArtworks)
 artworkRouter.get( '/auth/', auth, getAllArtworksAuth)
 artworkRouter.post( '/', auth, isEmployee, createArtwork)
+artworkRouter.get('/filter', auth, filterArtworks)
 artworkRouter.get('/:artworkId', getArtwork)
-artworkRouter.get('/filter', filterArtworks)
 artworkRouter.delete('/:artworkId', auth, isEmployee, deleteArtwork)
 artworkRouter.put('/:artworkId', auth, isEmployee, updateArtwork)
 

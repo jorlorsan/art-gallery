@@ -34,9 +34,13 @@ function filterExhibitionsFairs (req, res) {
         "$and": queryArray 
     }
     */
+   let object = {}
+    if(req.query.location) {
+        object.location = req.query.location 
+    }
 
    exhibitionsFairsModel
-        .find({location: req.query.location}) 
+        .find(object) 
         .populate('artworks', 'title')
         .populate('artists', 'artistName')
         .then((exhibitionsFairs) => { 

@@ -23,29 +23,14 @@ function createShipment(req, res){
   }
 
 function filterShipments(req, res){
-  let objQuery = {};
 
-  if(typeof req.query.from !== 'undefined'){
-    objQuery.from= req.query.from;
-  }
-  /*if(typeof req.query.to !== 'undefined'){
-    objQuery.to= req.query.to;
-  }*/
   shipmentsModel
-    .find(objQuery)
+    .find({ $or: [ { from : req.query.from }, { to : req.query.to }]})
     .populate('artworks')
     .then((shipments) => { 
-      res.json(shipments.map( shipment => { 
-      return { 
-        shipmentNo: shipment.title, 
-        from: shipment.from, 
-        to: shipment.to,
-        departure: shipment.departure,
-        artworks: shipment.artworks
-      }
-      }));
-    })
-    .catch((err) => handdleError(err, res))
+      res.json(shipments)}
+    )
+    .catch((err) => res.json(err))
 }
 
 function getShipment(req, res) {

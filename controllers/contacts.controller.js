@@ -7,6 +7,8 @@ const { handleError} = require('../utils/functions');
 function getAllContacts(req, res) {
   contactsModel
   .find()
+  .populate('exhibitions-fairs', 'title' )
+  .populate('artworks')
   .then((contacts) => {
       res.json(contacts)
     })
@@ -55,11 +57,13 @@ function createContact(req, res){
 
 function filterContacts(req, res){
     contactsModel
-      .find(objQuery)
+      .find({ $or: [ { name : req.query.name }, { type: req.query.type} ] })
+      .populate('exhibitions-fairs', 'title' )
+      .populate('artworks')
       .then((contacts) => { 
 				res.json(contacts);
 			})
-      .catch((err) => handdleError(err, res))
+      .catch((err) => res.json(err))
   }
 
 function getContact(req, res) {
@@ -67,10 +71,12 @@ function getContact(req, res) {
   console.log(contactId)
 	contactsModel
 		.findById(contactId)
+    .populate('exhibitions-fairs', 'title' )
+    .populate('artworks')
 		.then((contact) => {
 			res.json(contact)
 		})
-		.catch((err) => handdleError(err, res))
+		.catch((err) => res.json(err))
 }
 
 
@@ -88,9 +94,9 @@ function updateContact(req, res) {
   contactsModel
 	  .findByIdAndUpdate(req.params.contactId, req.body, {
       new: true,
-      //runValidators: true
-    }) //returnNewDocument : true
-		//save?
+    })
+    .populate('exhibitions-fairs', 'title' )
+    .populate('artworks')
     .then(contact => res.json(contact))
     .catch((err) => handdleError(err, res))
 }

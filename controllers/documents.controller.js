@@ -25,9 +25,9 @@ function createDocument(req, res){
 
   function filterDocuments(req, res){
     documentsModel
-      .find()
+      .find({ $or: [ { documentType : req.query.documentType }, { price : { $lte: req.query.price } }]})
       .populate('artworks','title')
-      .populate('artist','title')
+      .populate('artist','artistName')
 	    .then((documents) => { 
 				res.json(documents);
 			})
@@ -39,7 +39,7 @@ function getDocument(req, res) {
   documentsModel
     .findById(documentId)
     .populate('artworks','title')
-    .populate('artist','title')
+    .populate('artist','artistName')
     .then((document) => {
       res.json(document)
     })

@@ -25,7 +25,7 @@ function createDocument(req, res){
 
   function filterDocuments(req, res){
     documentsModel
-      .find({ $or: [ { documentType : req.query.documentType }, { price : { $lte: req.query.price } }]})
+      .find({ $or: [ { documentType : {'$regex': req.query.documentType, '$options' : 'i' } }, { price : { $lte: req.query.price } }]})
       .populate('artworks','title')
       .populate('artist','artistName')
 	    .then((documents) => { 

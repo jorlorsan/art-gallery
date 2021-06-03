@@ -57,7 +57,7 @@ function createContact(req, res){
 
 function filterContacts(req, res){
     contactsModel
-      .find({ $or: [ { name : req.query.name }, { type: req.query.type} ] })
+      .find({ $or: [ { name : req.query.name }, { type: {'$regex': req.query.type, '$options' : 'i' }} ] })
       .populate('exhibitions-fairs', 'title' )
       .populate('artworks')
       .then((contacts) => { 

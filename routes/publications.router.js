@@ -13,9 +13,9 @@ const {
 
 } = require('../controllers/publications.controller')
 
-publicationRouter.get( '/', getAllPublications)
+publicationRouter.get( '/', auth, getAllPublications)
 publicationRouter.post( '/', auth, isEmployee, createPublication)
-publicationRouter.get('/:publicationId', getPublication)
+publicationRouter.get('/:publicationId', auth, getPublication)
 publicationRouter.delete('/:publicationId', auth, isEmployee, deletePublication)
 publicationRouter.put('/:publicationId', auth, isEmployee, updatePublication
 )

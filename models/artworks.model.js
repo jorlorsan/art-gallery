@@ -13,7 +13,10 @@ const artworksSchema = new mongoose.Schema({
    year: {
         type: Number // Poner como date o máximo 4 dígitos
    },
-   medium: String,
+   medium: {
+        type: String,
+        required: true
+   },
    type: {
         type: String,
         enum: {

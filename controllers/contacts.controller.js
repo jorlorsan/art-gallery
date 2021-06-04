@@ -7,8 +7,10 @@ const { handleError} = require('../utils/functions');
 function getAllContacts(req, res) {
   contactsModel
   .find()
-  .populate('exhibitions-fairs', 'title' )
-  .populate('artworks')
+  .populate('exhibitionsVisited', 'title' )
+  .populate('artworkAcquired')
+  .populate('relatedContacts', 'name')
+  .populate('relatedContacts', 'surname')
   .then((contacts) => {
       res.json(contacts)
     })
@@ -57,9 +59,11 @@ function createContact(req, res){
 
 function filterContacts(req, res){
     contactsModel
-      .find({ $or: [ { name : req.query.name }, { type: {'$regex': req.query.type, '$options' : 'i' }} ] })
-      .populate('exhibitions-fairs', 'title' )
-      .populate('artworks')
+      .find({ $or: [ { name : {'$regex': req.query.name, '$options' : 'i' }}, { type: {'$regex': req.query.type, '$options' : 'i' }} ] })
+      .populate('exhibitionsVisited', 'title' )
+      .populate('artworkAcquired')
+      .populate('relatedContacts', 'name')
+      .populate('relatedContacts', 'surname')
       .then((contacts) => { 
 				res.json(contacts);
 			})
@@ -71,8 +75,10 @@ function getContact(req, res) {
   console.log(contactId)
 	contactsModel
 		.findById(contactId)
-    .populate('exhibitions-fairs', 'title' )
-    .populate('artworks')
+    .populate('exhibitionsVisited', 'title' )
+    .populate('artworkAcquired')
+    .populate('relatedContacts', 'name')
+    .populate('relatedContacts', 'surname')
 		.then((contact) => {
 			res.json(contact)
 		})
@@ -95,8 +101,10 @@ function updateContact(req, res) {
 	  .findByIdAndUpdate(req.params.contactId, req.body, {
       new: true,
     })
-    .populate('exhibitions-fairs', 'title' )
-    .populate('artworks')
+    .populate('exhibitionsVisited', 'title' )
+    .populate('artworkAcquired')
+    .populate('relatedContacts', 'name')
+    .populate('relatedContacts', 'surname')
     .then(contact => res.json(contact))
     .catch((err) => handdleError(err, res))
 }

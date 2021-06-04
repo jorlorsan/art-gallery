@@ -18,13 +18,6 @@ const publicationsSchema = new mongoose.Schema({
             message: '{VALUE} is not supported'
         }
    },
-   condition: {
-    type: String,
-    enum: {
-        values: ['New', 'Secondhand'],
-        message: '{VALUE} is not supported'
-       }   
-    },
     type: {
     type: String,
     enum: {
@@ -40,7 +33,6 @@ const publicationsSchema = new mongoose.Schema({
         message: '{VALUE} is not supported'
         }   
     },
-    location: String,
     currency: {
         type: String,
         default: "EUR"  

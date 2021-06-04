@@ -6,7 +6,8 @@ const documentsSchema = new mongoose.Schema({
         enum: {
             values: ['Invoice', 'Loan', 'Certificate of Authenticity', 'Contract'],
             message: '{VALUE} is not supported'
-            }   
+            },
+        required: true       
         },
     artwork: [{
       type: mongoose.Schema.Types.ObjectId,
@@ -21,12 +22,18 @@ const documentsSchema = new mongoose.Schema({
         type: String,
         default: "EUR"  
     },  
-    price: Number,
+    price: {
+      type: Number,
+      required: true
+    },
     parties: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'contact'
       }],
-    invoiceNumber: String
+    documentNo: {
+      type: String,
+      required: true
+    }
 })
 
 const documentsModel = mongoose.model('document', documentsSchema)

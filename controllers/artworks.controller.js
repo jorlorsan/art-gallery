@@ -3,9 +3,13 @@ const artworksModel = require('../models/artworks.model')
 function getAllArtworks (req, res) {
     artworksModel
         .find()
-        .populate('artists', 'artistName')
+        .populate('artistId', 'artistName')
         .then((artworks) => {
-          res.json(artworks.map(artwork => (artwork.title + ", " + artwork.year))) 
+          console.log(artworks)
+          res.json(artworks.map(artwork => {
+            let artists = artwork.artistId.map(artist => artist.artistName).join(", ")
+            return artists + ", " + artwork.title + ", " + artwork.year 
+          }))
         })
         .catch((err) => { res.json(err) })
 }
@@ -29,9 +33,9 @@ function getArtwork(req, res) {
 	artworkId = req.params.artworkId;
 	artworksModel
     .findById(artworkId)
-    .populate('artists', 'artistName')
+    .populate('artistId', 'artistName')
     .then((artwork) => {
-        res.json(artwork)
+        res.json(artwork.artistId[0].artistName + ", " + artwork.title + ", " + artwork.year)
     })
     .catch((err) => handdleError(err, res))
 }

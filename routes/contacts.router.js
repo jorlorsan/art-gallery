@@ -16,6 +16,6 @@ contactRouter.get('/filter', auth, isAdmin, filterContacts)
 contactRouter.get('/:contactId', auth, isAdmin,getContact)
 contactRouter.post( '/', auth, isAdmin, createContact)
 contactRouter.delete('/:contactId', auth, isAdmin, deleteContact)
-contactRouter.put('/:contactId', auth, updateContact)
+contactRouter.put('/:contactId', auth, updateContact) /*tendría que ser solo la tuya*/
 
 module.exports = contactRouter

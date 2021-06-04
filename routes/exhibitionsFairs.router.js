@@ -10,9 +10,9 @@ const { getAllExhibitionsFairs,
         updateExhibitionFair 
     } = require('../controllers/exhibitionsFairs.controller')
 
-exhibitionFairRouter.get( '/', getAllExhibitionsFairs)
-exhibitionFairRouter.get( '/filter/', filterExhibitionsFairs)
-exhibitionFairRouter.get( '/:title', getExhibitionFairByTitle)
+exhibitionFairRouter.get( '/', auth, getAllExhibitionsFairs)
+exhibitionFairRouter.get( '/filter/', auth, filterExhibitionsFairs)
+exhibitionFairRouter.get( '/:title', auth, getExhibitionFairByTitle)
 exhibitionFairRouter.post( '/', auth, isEmployee, createAnExhibitionFair)
 exhibitionFairRouter.put( '/:exhibitionId', auth, isEmployee, updateExhibitionFair)
 

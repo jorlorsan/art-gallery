@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const documentRouter = require('express').Router()
 
-const { auth, isEmployee } = require('../utils/functions')
+const { auth, isAdmin } = require('../utils/functions')
 
 const {
     getAllDocuments, 
@@ -13,12 +13,12 @@ const {
 
 } = require('../controllers/documents.controller')
 
-documentRouter.get( '/', auth, isEmployee, getAllDocuments)
-documentRouter.post( '/', auth, isEmployee, createDocument)
-documentRouter.get( '/filter', auth, isEmployee, filterDocuments)
-documentRouter.get('/:documentId', auth, isEmployee, getDocument)
-documentRouter.delete('/:documentId', auth, isEmployee, deleteDocument)
-documentRouter.put('/:documentId', auth, isEmployee, updateDocument
+documentRouter.get( '/', auth, isAdmin, getAllDocuments)
+documentRouter.post( '/', auth, isAdmin, createDocument)
+documentRouter.get( '/filter', auth, isAdmin, filterDocuments)
+documentRouter.get('/:documentId', auth, isAdmin, getDocument)
+documentRouter.delete('/:documentId', auth, isAdmin, deleteDocument)
+documentRouter.put('/:documentId', auth, isAdmin, updateDocument
 )
 
 

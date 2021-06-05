@@ -27,7 +27,9 @@ function filterShipments(req, res){
 
   shipmentsModel
     .find({ $or: [ { from : req.query.from }, { to : req.query.to }]})
-    .populate('artworks')
+    .populate('artwork', 'title')
+    .populate('shipper', 'name')
+    .populate('client', 'name')
     .then((shipments) => { 
       res.json(shipments)}
     )
@@ -38,8 +40,9 @@ function getShipment(req, res) {
 	shipmentId = req.params.shipmentId;
 	shipmentsModel
 		.findById(shipmentId)
-		.populate('artworks')
-    .populate('contacts')
+		.populate('artwork')
+    .populate('client')
+    .populate('shipper')
 		.then((shipment) => {
 			res.json(shipment)
 		})

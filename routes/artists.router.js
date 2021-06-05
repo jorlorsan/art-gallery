@@ -14,9 +14,9 @@ const {
 } = require('../controllers/artists.controller')
 
 artistRouter.get( '/', auth, isEmployee, getAllArtists)
-artistRouter.get('/:artistId', auth, isEmployee, getArtist)
 artistRouter.post( '/', auth, isEmployee, createArtist)
 artistRouter.get('/filter', auth, isEmployee, filterArtists)
+artistRouter.get('/:artistId', auth, isEmployee, getArtist)
 artistRouter.delete('/:artistId', auth, isEmployee, deleteArtist)
 artistRouter.put('/publications/:artistId', auth, isEmployee, addPublicationToArtist)
 artistRouter.put('/:artistId', auth, isEmployee, updateArtist)

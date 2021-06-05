@@ -4,7 +4,7 @@ const { handdleError} = require('../utils/functions');
 function getAllDocuments(req, res) {
     documentsModel
         .find()
-        .populate('artwork')
+        .populate('artwork','title')
         .populate('artist','artistName')
         .populate('parties', 'name')
         .then((documents) => {
@@ -25,8 +25,11 @@ function createDocument(req, res){
   }
 
   function filterDocuments(req, res){
+    let queries = []
+    if (req.query.documentType) queries.push({ documentType : {'$regex': req.query.documentType, '$options' : 'i' } })
+    if (req.query.price) queries.push({ price : {$lte: parseInt(req.query.price) }})
     documentsModel
-      .find({ $or: [ { documentType : {'$regex': req.query.documentType, '$options' : 'i' } }, { price : { $lte: req.query.price } }]})
+      .find({ $or: queries})
       .populate('artworks','title')
       .populate('artist','artistName')
 	    .then((documents) => { 

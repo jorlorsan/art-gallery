@@ -88,9 +88,9 @@ This web-based solution is also intended to generate business intelligence by gi
  
 |  METHOD  | ENDPOINT           | TOKEN | AUTH     | DESCRIPTION | BODY | QUERY| RETURNS   |
 |----------|--------------------|-------|----------|-------------|----------|--------|-----------|
-|    GET   | api/exhibitionsFairs| Yes | Required: `auth` | Searches all exhibitions & fairs | None | None | All exhibitions & fairs |
-|    GET   | api/exhibitionsFairs/:exhibitionFairId | Yes | Required: `auth` | Finds a specific exhibition or fair| None | `exhibitionFairId` | A specific exhibition or fair's entry  |
-|    GET   | api/exhibitionsFairs/filter | Yes | Required: `auth` | Filters contacts | None | `location` `artworks` `artists`| Filtered exhibitions & fairs by location and/or artwork exhibited and/or participating artist |
+|    GET   | api/exhibitionsFairs| None | None | Searches all exhibitions & fairs | None | None | All exhibitions & fairs |
+|    GET   | api/exhibitionsFairs/:exhibitionFairId | None | None | Finds a specific exhibition or fair| None | `exhibitionFairId` | A specific exhibition or fair's entry  |
+|    GET   | api/exhibitionsFairs/filter | None | None | Filters contacts | None | `location` `artworks` `artists`| Filtered exhibitions & fairs by location and/or artwork exhibited and/or participating artist |
 |    POST  | api/exhibitionsFairs| Yes | Required: `auth` `isEmployee`| Creates an entry for an exhibition or fair| - Required: `title` `openingDate` `closingDate` - Additional: `artworks` `artists` | None | Inputted information |
 |    PUT  | api/exhibitionsFairs/:exhibitionFairId| Yes | Required: `auth` `isEmployee`| Updates an entry for an exhibition or fair | - Optional: `title` `openingDate` `closingDate` `artworks` `artists` | `exhibitionFairId` | Full exhibition or fair entry |
 

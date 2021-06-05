@@ -4,8 +4,9 @@ const { handleError} = require('../utils/functions');
 function getAllShipments(req, res) {
    shipmentsModel
     .find()
-		.populate('artworks') //revisar
-    .populate('contacts')
+		.populate('artwork', 'title')
+    .populate('shipper', 'name')
+    .populate('client', 'name')
     .then((shipments) => {
       res.json(shipments)
     })

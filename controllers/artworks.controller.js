@@ -17,7 +17,8 @@ function getAllArtworks (req, res) {
 function getAllArtworksAuth (req, res) {
   artworksModel
       .find()
-      .populate('artists', 'artistName')
+      .populate('artistId', 'artistName')
+      .populate('exhibitionHistory', 'title')
       .then((artworks) => { res.json(artworks) })
       .catch((err) => { res.json(err) })
 }
@@ -37,14 +38,15 @@ function getArtwork(req, res) {
     .then((artwork) => {
         res.json(artwork.artistId[0].artistName + ", " + artwork.title + ", " + artwork.year)
     })
-    .catch((err) => handdleError(err, res))
+    .catch((err) => { res.json(err) })
 }
 
 function filterArtworks(req, res){
   
   artworksModel
     .find({ $or: [ { year : req.query.year }, { type : {'$regex': req.query.type, '$options' : 'i' }}]} )
-    .populate('artists', 'artistName')
+    .populate('artistId', 'artistName')
+    .populate('exhibitionHistory', 'title')
     .then((artworks) => { 
       res.json(artworks );
     })
@@ -62,12 +64,15 @@ function deleteArtwork(req, res){
 
 function updateArtwork(req, res) {
   artworksModel
-	  .findByIdAndUpdate(req.params.artworkId, req.body, {
-      new: true,
-      runValidators: true
+	  .findById(req.params.artworkId)
+    .populate('artistId', 'artistName')
+    .populate('exhibitionHistory', 'title')
+    .then(artwork => {
+      artwork.exhibitionHistory.push(req.body.exhibitionHistory)
+      artwork.save()
+      res.json(artwork)
     })
-    .then(artwork => res.json(artwork))
-    .catch((err) => handdleError(err, res))
+    .catch((err) => {res.json (err)})
 }
 
 module.exports = {

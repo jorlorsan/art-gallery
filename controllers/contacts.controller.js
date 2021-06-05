@@ -10,7 +10,6 @@ function getAllContacts(req, res) {
   .populate('exhibitionsVisited', 'title' )
   .populate('artworkAcquired')
   .populate('relatedContacts', 'name')
-  .populate('relatedContacts', 'surname')
   .then((contacts) => {
       res.json(contacts)
     })

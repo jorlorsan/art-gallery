@@ -12,6 +12,8 @@ function getAllExhibitionsFairs(req, res) {
 function getExhibitionFairByTitle (req, res) {
     exhibitionsFairsModel
         .findOne( {"title": req.params.title} )
+        .populate('artists', 'artistName')
+        .populate('artworks', 'title')
         .then((exhibitionFair) => { res.json(exhibitionFair) })
         .catch((err) => { res.json(err) })
 }
@@ -41,8 +43,8 @@ function filterExhibitionsFairs (req, res) {
 
    exhibitionsFairsModel
         .find(object) 
-        .populate('artworks', 'title')
-        .populate('artists', 'artistName')
+        .populate('artworks')
+        .populate('artists')
         .then((exhibitionsFairs) => { 
 
             let result = exhibitionsFairs
@@ -69,12 +71,17 @@ function createAnExhibitionFair (req, res) {
 
 function updateExhibitionFair(req, res) {
     exhibitionsFairsModel
-        .findByIdAndUpdate(req.params.exhibitionId, req.body, {
-        new: true,
-        runValidators: true
-      })
-      .then(exhibitionFair => res.json(exhibitionFair))
-      .catch((err) => {res.json(err, res) })
+      .findById(req.params.exhibitionId)
+      .populate('artists', 'artistName')
+      .populate('artworks', 'title')
+      .then(exhibitionFair => {
+          exhibitionFair.title = req.body.title
+          exhibitionFair.artists.push(req.body.artists)
+          exhibitionFair.artworks.push(req.body.artworks)
+          exhibitionFair.save()
+          res.json(exhibitionFair)
+        })
+      .catch((err) => {res.json(err) })
   }
 
 module.exports = {

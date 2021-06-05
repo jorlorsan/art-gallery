@@ -18,7 +18,7 @@ artistRouter.get('/:artistId', auth, isEmployee, getArtist)
 artistRouter.post( '/', auth, isEmployee, createArtist)
 artistRouter.get('/filter', auth, isEmployee, filterArtists)
 artistRouter.delete('/:artistId', auth, isEmployee, deleteArtist)
-artistRouter.put('/:artistId', auth, isEmployee, addPublicationToArtist)
+artistRouter.put('/publications/:artistId', auth, isEmployee, addPublicationToArtist)
 artistRouter.put('/:artistId', auth, isEmployee, updateArtist)
 
 module.exports = artistRouter

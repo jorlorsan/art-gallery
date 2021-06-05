@@ -31,7 +31,7 @@ const artworksSchema = new mongoose.Schema({
    },
    exhibitionHistory: [{
        type: mongoose.Schema.Types.ObjectId,
-       ref: 'exhibition-fair'
+       ref: 'exhibitions-fair'
    }],
    location: {
         type: String,

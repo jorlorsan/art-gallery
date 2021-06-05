@@ -4,8 +4,9 @@ const { handdleError} = require('../utils/functions');
 function getAllDocuments(req, res) {
     documentsModel
         .find()
-        .populate('artworks','title')
-        .populate('artist','title')
+        .populate('artwork')
+        .populate('artist','artistName')
+        .populate('parties', 'name')
         .then((documents) => {
             res.json(documents)
         })

@@ -4,7 +4,7 @@ const { handleError} = require('../utils/functions');
 function getAllArtists(req, res) {
     artistsModel
         .find()
-				.populate('artworks')
+				.populate('artworks', 'title')
         .then((artists) => {
             res.json(artists)
         })
@@ -50,7 +50,7 @@ function getArtist(req, res) {
 		.then((artist) => {
 			res.json(artist)
 		})
-		.catch((err) => handdleError(err, res))
+		.catch((err) => {res.json(err)})
 }
 
 
@@ -64,14 +64,15 @@ function deleteArtist(req, res){
 }
 
 function updateArtist(req, res) {
-  console.log(req.params)
+  console.log(req.body)
   artistsModel
-	  .findByIdAndUpdate(req.params.artistId, req.body, {
-      new: true,
-      //runValidators: true
-    }) //returnNewDocument : true
-		//save?
-    .then(artist => res.json(artist))
+	  .findById(req.params.artistId)
+    .populate('artworks', 'title')
+    .then(artist => {
+      artist.artworks.push(req.body.artworks)
+      artist.save()
+      res.json(artist)
+    })
     .catch((err) => handdleError(err, res))
 }
 

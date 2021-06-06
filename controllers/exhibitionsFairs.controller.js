@@ -19,23 +19,8 @@ function getExhibitionFairByTitle (req, res) {
 }
 
 function filterExhibitionsFairs (req, res) {
-    console.log("HOLAAAAAAA", req.query)
 
-    /*let queryArray = []
-    const queryKeys = Object.keys(req.query) 
-    queryKeys.forEach( (query) => {
-        
-        let obj = {}
-        const key = `${query}`
-        obj[key] = { "$regex": req.query[query] , "$options": "i"}
-        queryArray.push(obj)
-    } )
-    console.log(queryArray)
-    
-    Dentro del find: {
-        "$and": queryArray 
-    }
-    */
+  
    let object = {}
     if(req.query.location) {
         object.location = req.query.location 

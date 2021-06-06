@@ -25,8 +25,12 @@ function createDocument(req, res){
   }
 
   function filterDocuments(req, res){
+    let queryArray=[]
+    //req.query.min & req.query.max price: { gt: req.query.min, lte: req.query.max}
+    if(req.query.documentType) queryArray.push({ documentType : {'$regex': req.query.documentType, '$options' : 'i' } })
+    if(req.query.price) queryArray.push({ price : { $lte: req.query.price } })
     documentsModel
-      .find({ $or: [ { documentType : {'$regex': req.query.documentType, '$options' : 'i' } }, { price : { $lte: req.query.price } }]})
+      .find({ $or: queryArray })
       .populate('artworks','title')
       .populate('artist','artistName')
 	    .then((documents) => { 

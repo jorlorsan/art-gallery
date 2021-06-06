@@ -57,16 +57,19 @@ function createContact(req, res){
 }
 
 function filterContacts(req, res){
-    contactsModel
-      .find({ $or: [ { name : {'$regex': req.query.name, '$options' : 'i' }}, { type: {'$regex': req.query.type, '$options' : 'i' }} ] })
-      .populate('exhibitionsVisited', 'title' )
-      .populate('artworkAcquired')
-      .populate('relatedContacts', 'name')
-      .populate('relatedContacts', 'surname')
-      .then((contacts) => { 
-				res.json(contacts);
-			})
-      .catch((err) => res.json(err))
+  let queryArray=[]
+  if(req.query.name) queryArray.push({ name : {'$regex': req.query.name, '$options' : 'i' } })
+  if(req.query.type) queryArray.push({ type : {'$regex': req.query.type, '$options' : 'i' }})
+  contactsModel
+    .find({ $or: queryArra})
+    .populate('exhibitionsVisited', 'title' )
+    .populate('artworkAcquired')
+    .populate('relatedContacts', 'name')
+    .populate('relatedContacts', 'surname')
+    .then((contacts) => { 
+      res.json(contacts);
+    })
+    .catch((err) => res.json(err))
   }
 
 function getContact(req, res) {

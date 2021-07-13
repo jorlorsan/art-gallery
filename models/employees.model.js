@@ -1,23 +1,14 @@
 const mongoose = require('mongoose')
-const {publicationsSchema} = require('./publications.model')
 
-const artistsSchema = new mongoose.Schema({
-    artistName: {
+const employeesSchema = new mongoose.Schema({
+    name: {
         type: String,
         required: true
     },
-    artworks: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'artwork'
-    }],
-    dateOfBirth: Date,
-    dateOfDeath: Date,
-    image: String,
-    country: {
+    surname: {
         type: String,
         required: true
     },
-    website: String,
     email: {
         type: String,
         required: [true, "Email is required"],
@@ -38,9 +29,23 @@ const artistsSchema = new mongoose.Schema({
         },
         required: [true, 'User phone number required']
       },
-    publications: [ publicationsSchema ]  
-
+    street: String,
+    city: String,
+    postcode: String,
+    country: String,
+    password: { 
+        type: String, 
+        required: true 
+    },
+    image: String,
+    position: [{
+        type: Enum,
+        enum: {
+          values: ['Admin', 'Director', 'Assistant', 'Intern'],
+         },
+        default: "Intern"    
+    }]   
 })
 
-const artistsModel = mongoose.model('artist', artistsSchema)
-module.exports = artistsModel
+const employeesModel = mongoose.model('employee', employeesSchema)
+module.exports = employeesModel

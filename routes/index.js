@@ -8,6 +8,7 @@ const contactRouter = require('./contacts.router')
 const exhibitionFairRouter = require('./exhibitionsFairs.router')
 const shipmentRouter = require('./shipments.router')
 const documentRouter = require('./documents.router')
+const employeeRouter = require('./employees.router')
 
 router.use('/artworks', artworkRouter)
 router.use('/artists', artistRouter)
@@ -17,5 +18,6 @@ router.use('/contacts', contactRouter)
 router.use('/exhibitionsFairs', exhibitionFairRouter)
 router.use('/shipments', shipmentRouter)
 router.use('/documents', documentRouter)
+router.use('/employees', employeeRouter)
 
 module.exports = router

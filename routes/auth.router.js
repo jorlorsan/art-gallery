@@ -7,6 +7,6 @@ const {
 } = require('../controllers/auth.controller')
 
 authRouter.post('/signUp', signUp)
-authRouter.get('/logIn', logIn)
+authRouter.post('/logIn', logIn)
 
 module.exports = authRouter

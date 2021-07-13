@@ -23,16 +23,11 @@ function createArtist(req, res){
 }
 
 function filterArtists(req, res){
-    let objQuery = {};
-    if(typeof req.query.artistName !== 'undefined'){
-      objQuery.artistName= req.query.artistName;
-    }
-    if(typeof req.query.country !== 'undefined'){
-      objQuery.country= req.query.country;
-    }
-
+    let queryArr = []; 
+    if(req.query.artistName){ queryArr.push({ artistName: {'$regex': req.query.artistName, '$options' : 'i' } }) }
+    if(req.query.country){ queryArr.push({ country: req.query.country }) }
     artistsModel
-      .find(objQuery)
+      .find({ $or: queryArray })
 			.populate('artworks')
       .then((artists) => { 
 				res.json(artists);

@@ -24,12 +24,19 @@ function createShipment(req, res){
   }
 
 function filterShipments(req, res){
-
+  let queryArray=[]
+  if(req.query.from) queryArray.push({ from : req.query.from })
+  if(req.query.to) queryArray.push({ to : req.query.to })
   shipmentsModel
+<<<<<<< HEAD
     .find({ $or: [ { from : req.query.from }, { to : req.query.to }]})
     .populate('artwork', 'title')
     .populate('shipper', 'name')
     .populate('client', 'name')
+=======
+    .find({ $or: queryArray })
+    .populate('artworks')
+>>>>>>> a355335dd9c57bb6cfe56f4da980f69f0637ebc2
     .then((shipments) => { 
       res.json(shipments)}
     )

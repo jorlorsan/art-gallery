@@ -42,9 +42,11 @@ function getArtwork(req, res) {
 }
 
 function filterArtworks(req, res){
-  
+  let queryArray=[]
+  if(req.query.year) queryArray.push({ year : req.query.year })
+  if(req.query.type) queryArray.push({ type : {'$regex': req.query.type, '$options' : 'i' }})
   artworksModel
-    .find({ $or: [ { year : req.query.year }, { type : {'$regex': req.query.type, '$options' : 'i' }}]} )
+    .find({ $or: queryArray } )
     .populate('artistId', 'artistName')
     .populate('exhibitionHistory', 'title')
     .then((artworks) => { 
